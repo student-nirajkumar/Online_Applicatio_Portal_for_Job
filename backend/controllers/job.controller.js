@@ -1,6 +1,50 @@
 import { Job } from "../models/job.model.js";
 
 // admin post krega job
+// export const postJob = async (req, res) => {
+//     try {
+//         const { title, description, requirements, salary, location, jobType, experience, position, companyId } = req.body;
+//         const userId = req.id;
+
+//         if (!title || !description || !requirements || !salary || !location || !jobType || !experience || !position || !companyId) {
+//             return res.status(400).json({
+//                 message: "Somethin is missing.",
+//                 success: false
+//             })
+//         };
+//         const job = await Job.create({
+//             title,
+//             description,
+//             requirements: requirements.split(","),
+//             salary: Number(salary),
+//             location,
+//             jobType,
+//             experienceLevel: experience,
+//             position,
+//             company: companyId,
+//             created_by: userId
+//         });
+//         return res.status(201).json({
+//             message: "New job created successfully.",
+//             job,
+//             success: true
+//         });
+//      } 
+//     //  catch (error) {
+//     //      console.log(error);
+//     //  }
+
+//     catch (error) {
+//     console.error(error);
+//     return res.status(500).json({
+//         message: "Internal server error",
+//         success: false
+//     });
+// }
+
+     
+
+//}
 export const postJob = async (req, res) => {
     try {
         const { title, description, requirements, salary, location, jobType, experience, position, companyId } = req.body;
@@ -8,10 +52,11 @@ export const postJob = async (req, res) => {
 
         if (!title || !description || !requirements || !salary || !location || !jobType || !experience || !position || !companyId) {
             return res.status(400).json({
-                message: "Somethin is missing.",
+                message: "Something is missing.",
                 success: false
-            })
-        };
+            });
+        }
+
         const job = await Job.create({
             title,
             description,
@@ -24,15 +69,25 @@ export const postJob = async (req, res) => {
             company: companyId,
             created_by: userId
         });
+
         return res.status(201).json({
             message: "New job created successfully.",
             job,
             success: true
         });
+
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        return res.status(500).json({
+            message: "Internal server error",
+            success: false
+        });
     }
-}
+};
+
+
+
+
 // student k liye
 export const getAllJobs = async (req, res) => {
     try {
@@ -56,9 +111,19 @@ export const getAllJobs = async (req, res) => {
             jobs,
             success: true
         })
-    } catch (error) {
-        console.log(error);
-    }
+    } 
+    // catch (error) {
+    //     console.log(error);
+    // }
+
+    catch (error) {
+    console.error(error);
+    return res.status(500).json({
+        message: "Internal server error",
+        success: false
+    });
+}
+
 }
 // student
 export const getJobById = async (req, res) => {
@@ -74,9 +139,18 @@ export const getJobById = async (req, res) => {
             })
         };
         return res.status(200).json({ job, success: true });
-    } catch (error) {
-        console.log(error);
-    }
+    } 
+    // catch (error) {
+    //     console.log(error);
+    // }
+    catch (error) {
+    console.error(error);
+    return res.status(500).json({
+        message: "Internal server error",
+        success: false
+    });
+}
+
 }
 // admin kitne job create kra hai abhi tk
 export const getAdminJobs = async (req, res) => {
@@ -96,7 +170,17 @@ export const getAdminJobs = async (req, res) => {
             jobs,
             success: true
         })
-    } catch (error) {
-        console.log(error);
-    }
+    } 
+    // catch (error) {
+    //     console.log(error);
+    // }
+   catch (error) {
+    console.error(error);
+    return res.status(500).json({
+        message: "Internal server error",
+        success: false
+    });
+}
+
+
 }
