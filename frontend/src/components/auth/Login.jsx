@@ -66,7 +66,7 @@ const Login = () => {
                             value={input.email}
                             name="email"
                             onChange={changeEventHandler}
-                            placeholder="niraj@gmail.com"
+                            placeholder="patel@gmail.com"
                         />
                     </div>
 
@@ -77,7 +77,7 @@ const Login = () => {
                             value={input.password}
                             name="password"
                             onChange={changeEventHandler}
-                            placeholder="niraj@12345"
+                            placeholder="patel@gmail.com"
                         />
                     </div>
                     <div className='flex items-center justify-between'>
@@ -107,27 +107,7 @@ const Login = () => {
                         </RadioGroup>
                     </div>
                     {
-                        // loading ? <Button className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait </Button> : <Button type="submit" className="w-full my-4">Login</Button>
-                        
-  loading ? (
-    <Button
-      disabled
-      className="w-full my-4 bg-[#6A38C2] text-white cursor-not-allowed"
-    >
-      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-      Please wait
-    </Button>
-  ) : (
-    <Button
-      type="submit"
-      className="w-full my-4 bg-[#6A38C2] text-white cursor-pointer hover:bg-[#5b30a6] transition"
-    >
-      Login
-    </Button>
-  )
-
-
-                        
+                        loading ? <Button className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait </Button> : <Button type="submit" className="w-full my-4">Login</Button>
                     }
                     <span className='text-sm'>Don't have an account? <Link to="/signup" className='text-blue-600'>Signup</Link></span>
                 </form>

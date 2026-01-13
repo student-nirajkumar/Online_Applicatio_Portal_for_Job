@@ -69,78 +69,47 @@ export const getCompanyById = async (req, res) => {
         console.log(error);
     }
 }
-// export const updateCompany = async (req, res) => {
-//     try {
-//         const { name, description, website, location } = req.body;
- 
-//         const file = req.file;
-//         // idhar cloudinary ayega
-//         const fileUri = getDataUri(file);
-//         const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-//         const logo = cloudResponse.secure_url;
-    
-//         const updateData = { name, description, website, location, logo };
-
-//         const company = await Company.findByIdAndUpdate(req.params.id, updateData, { new: true });
-
-//         if (!company) {
-//             return res.status(404).json({
-//                 message: "Company not found.",
-//                 success: false
-//             })
-//         }
-//         return res.status(200).json({
-//             message:"Company information updated.",
-//             success:true
-//         })
-
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
 export const updateCompany = async (req, res) => {
-    try {
-        const { name, description, website, location } = req.body;
+  try {
+    const { name, description, website, location } = req.body;
 
-        // Build update object (RAW JSON only)
-        const updateData = {
-            name,
-            description,
-            website,
-            location
-        };
+    const updateData = { name, description, website, location };
 
-        const file = req.file;
-        if(file){
-            const fileUri = getDataUri(file);
-            const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-            updateData.logo = cloudResponse.secure_url;
-        }
+    // file is OPTIONAL
+    if (req.file) {
+      const fileUri = getDataUri(req.file);
 
-        const company = await Company.findByIdAndUpdate(
-            req.params.id,
-            updateData,
-            { new: true }
+      if (fileUri) {
+        const cloudResponse = await cloudinary.uploader.upload(
+          fileUri.content
         );
-
-        if (!company) {
-            return res.status(404).json({
-                message: "Company not found.",
-                success: false
-            });
-        }
-
-        return res.status(200).json({
-            message: "Company information updated.",
-            company,
-            success: true
-        });
-
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({
-            message: "Server error",
-            success: false
-        });
+        updateData.logo = cloudResponse.secure_url;
+      }
     }
+
+    const company = await Company.findByIdAndUpdate(
+      req.params.id,
+      updateData,
+      { new: true }
+    );
+
+    if (!company) {
+      return res.status(404).json({
+        message: "Company not found.",
+        success: false,
+      });
+    }
+
+    return res.status(200).json({
+      message: "Company information updated.",
+      company,
+      success: true,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Server error",
+      success: false,
+    });
+  }
 };
