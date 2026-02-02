@@ -96,7 +96,7 @@ Job_portal/
 ## ⚙️ Environment Variables (Backend)
 
 ```env
-PORT=8000
+PORT=8001
 MONGO_URI=your_mongodb_uri
 JWT_SECRET=your_secret_key
 CLOUD_NAME=your_cloudinary_name
@@ -121,7 +121,7 @@ npm run dev
 ```
 Backend runs on:
 ```
-http://localhost:8000
+http://localhost:8001
 ```
 
 
